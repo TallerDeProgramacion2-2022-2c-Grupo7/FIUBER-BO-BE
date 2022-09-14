@@ -1,6 +1,7 @@
 # FIUBER-BO-BE
 Backend side of FIUBER’s back office
 
+![licence](https://img.shields.io/github/license/TallerDeProgramacion2-2022-2c-Grupo7/FIUBER-BO-BE)
 
 ## Instalar dependencias
 ``` bash
