@@ -20,13 +20,17 @@ jobs:
       - name: Install Poetry
         run:  pip3 install poetry
 
+      - name: Config Poetry
+        run:  poetry config virtualenvs.create false
+
       - name: Install project dependencies
         run:  poetry install
 
       - name: Run tests
-        run:  poetry run pytest
+        run:  pytest
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
-            pylint: true
+            black: true
+            autopep8: true
