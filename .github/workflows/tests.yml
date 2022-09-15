@@ -27,7 +27,7 @@ jobs:
         run:  poetry install
 
       - name: Run tests
-        run:  pytest
+        run:  pytest --cov=app --cov-report=html
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
