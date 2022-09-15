@@ -14,10 +14,10 @@ app.add_middleware(
 msg = "Hola mundo!"
 
 
-@app.get('/hola')
+@app.get("/hola")
 async def get_users():
     return msg
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

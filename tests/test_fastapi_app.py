@@ -3,6 +3,7 @@ from fastapi.testclient import TestClient
 
 from pathlib import Path
 import sys
+
 path = str(Path(Path(__file__).parent.absolute()).parent.absolute())
 sys.path.insert(0, path + "/fastapi_app")
 
