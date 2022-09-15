@@ -13,6 +13,7 @@ app.add_middleware(
 
 msg = "Hola mundo!"
 
+
 @app.get('/hola')
 async def get_users():
     return msg
