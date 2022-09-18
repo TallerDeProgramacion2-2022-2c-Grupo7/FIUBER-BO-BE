@@ -35,5 +35,3 @@ jobs:
             auto_fix: true
             black: true
             black_auto_fix: true
-            autopep8: true
-            autopep8_auto_fix: true
