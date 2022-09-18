@@ -9,6 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
+        name: Set APP_NAME environment variable
+        run: echo "APP_NAME=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+      -
+        name: Checkout repository
+        uses: actions/checkout@v3
+      -
+        name: Create env file
+        run: echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" > ./.env
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       -
@@ -24,29 +33,25 @@ jobs:
         name: Build and push image to DockerHub
         uses: docker/build-push-action@v3
         with:
+          context: .
           push: true
-          tags: mhuenul/fiuber-bo-be:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:latest
       -
-        name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          path: ${{ github.event.repository.name }}
-      -
-        name: Set APP_NAME
-        run: sed -i "s/\$APP_NAME/$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')/g" ${{ github.event.repository.name }}/kubernetes.yml
+        name: Configure kubernetes.yml
+        run: sed -i "s/\$APP_NAME/${{ env.APP_NAME }}/g" ./kubernetes.yml && sed -i "s/\$DOCKERHUB_USERNAME/${{ secrets.DOCKERHUB_USERNAME }}/g" ./kubernetes.yml
       -
         name: Debug
-        run: cat ${{ github.event.repository.name }}/kubernetes.yml
+        run: cat ./kubernetes.yml
       -
         name: Delete deployment from okteto
         uses: steebchen/kubectl@v2.0.0
         continue-on-error: true
         with:
           config: ${{ secrets.KUBE_CONFIG_DATA }}
-          command: delete -f ${{ github.event.repository.name }}/kubernetes.yml
+          command: delete -f ./kubernetes.yml
       -
         name: Apply deployment to okteto
         uses: steebchen/kubectl@v2.0.0
         with:
           config: ${{ secrets.KUBE_CONFIG_DATA }}
-          command: apply -f ${{ github.event.repository.name }}/kubernetes.yml
+          command: apply -f ./kubernetes.yml
