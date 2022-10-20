@@ -39,5 +39,16 @@ def read_ratings(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
     ratings = crud.get_ratings(db, skip=skip, limit=limit)
     return ratings
 
+
+@app.get("/{id_user_scored}/average", response_model=float)
+def get_average_score(id_user_scored: str, db: Session = Depends(get_db)):
+    ratings_summary = crud.get_ratings_summary(db, id_user_scored)
+    if ratings_summary is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    total_sum, count = ratings_summary
+    avg = round(total_sum / count, 2)
+    return avg
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -13,3 +13,13 @@ class Rating(Base):
     # The id of the user who receives the rating
     id_user_scored = Column(String,  index=True)
     value = Column(Integer)
+
+
+class RatingsSummary(Base):
+    __tablename__ = "ratings_summary"
+    
+    id_user_scored = Column(String, primary_key=True,  index=True)
+    total_sum = Column(Integer)
+    count = Column(Integer)
+
+

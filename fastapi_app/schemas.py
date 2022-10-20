@@ -8,3 +8,12 @@ class Rating(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class RatingsSummary(BaseModel):
+    id_user_scored: str
+    total_sum: int
+    count: int
+
+    class Config:
+        orm_mode = True
