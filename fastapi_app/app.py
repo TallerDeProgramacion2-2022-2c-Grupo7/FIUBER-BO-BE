@@ -30,7 +30,9 @@ def get_db():
 
 @app.post("/", response_model=schemas.Rating)
 def create_rating(rating: schemas.Rating, db: Session = Depends(get_db)):
-    # ToDo verificar que no haya un rating con ese código
+    db_rating = crud.get_rating_by_id_trip(db,  id_trip = rating.id_trip)
+    if db_rating:
+        raise HTTPException(status_code=400, detail="Rating already registered")
     return crud.create_rating(db=db, rating=rating)
 
 

@@ -8,11 +8,9 @@ def create_rating(db: Session, rating: schemas.Rating):
                             id_user_scorer = rating.id_user_scorer,
                             id_user_scored = rating.id_user_scored,
                             value = rating.value)
-
     db.add(db_rating)
     db.commit()
     db.refresh(db_rating)
-
 
     q = db.query(RatingsSummary).filter_by(id_user_scored = rating.id_user_scored)
     # If the rating was present in the summary 
@@ -27,8 +25,10 @@ def create_rating(db: Session, rating: schemas.Rating):
         db.add(db_ratings_summary)
         
     db.commit()
-
     return db_rating
+
+def get_rating_by_id_trip(db: Session, id_trip: str):
+    return db.query(Rating).filter_by(id_trip = id_trip).first()
 
 
 def get_ratings(db: Session, skip: int = 0, limit: int = 100):
@@ -36,6 +36,4 @@ def get_ratings(db: Session, skip: int = 0, limit: int = 100):
 
 def get_ratings_summary(db: Session, id_user_scored: str):
     return db.query(RatingsSummary.total_sum, RatingsSummary.count).filter_by(id_user_scored = id_user_scored).first()
-
-    
 
