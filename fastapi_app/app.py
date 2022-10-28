@@ -30,9 +30,13 @@ def get_db():
 
 @app.post("/", response_model=schemas.Rating)
 def create_rating(rating: schemas.Rating, db: Session = Depends(get_db)):
+    if rating.id_user_scorer == rating.id_user_scored:
+        raise HTTPException(status_code=400, detail="A user can't rate himself")
+
     db_rating = crud.get_rating_by_id_trip(db,  id_trip = rating.id_trip)
     if db_rating:
         raise HTTPException(status_code=400, detail="Rating already registered")
+
     return crud.create_rating(db=db, rating=rating)
 
 
