@@ -3,9 +3,16 @@ import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
+import firebase_admin
+from firebase_admin import credentials
 
+from firebase_credentials import admin_credentials
+from id_token import IdTokenMiddleware
 import crud, models, schemas
 from database import SessionLocal, engine
+
+firebase_credentials = credentials.Certificate(admin_credentials)
+firebase_admin.initialize_app(firebase_credentials)
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -18,6 +25,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+app.add_middleware(IdTokenMiddleware)
 
 def get_db():
     db = SessionLocal()
