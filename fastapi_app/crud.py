@@ -31,8 +31,8 @@ def get_rating_by_id_trip(db: Session, id_trip: str):
     return db.query(Rating).filter_by(id_trip = id_trip).first()
 
 
-def get_ratings(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Rating).offset(skip).limit(limit).all()
+def get_ratings_by_id_user_scorer(db: Session, id_user_scorer: str, skip: int = 0, limit: int = 100):
+    return db.query(Rating.id_trip, Rating.id_user_scored, Rating.value).filter_by(id_user_scorer = id_user_scorer).offset(skip).limit(limit).all()
 
 def get_ratings_summary(db: Session, id_user_scored: str):
     return db.query(RatingsSummary.total_sum, RatingsSummary.count).filter_by(id_user_scored = id_user_scored).first()

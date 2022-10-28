@@ -36,9 +36,9 @@ def create_rating(rating: schemas.Rating, db: Session = Depends(get_db)):
     return crud.create_rating(db=db, rating=rating)
 
 
-@app.get("/", response_model=List[schemas.Rating])
-def read_ratings(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    ratings = crud.get_ratings(db, skip=skip, limit=limit)
+@app.get("/{id_user_scorer}", response_model=List[schemas.RatingBase])
+def read_ratings(id_user_scorer: str, skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    ratings = crud.get_ratings_by_id_user_scorer(db, id_user_scorer, skip=skip, limit=limit)
     return ratings
 
 
