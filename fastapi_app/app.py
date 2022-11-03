@@ -5,6 +5,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 import firebase_admin
 from firebase_admin import credentials
+from os import environ
 
 from firebase_credentials import admin_credentials
 from id_token import IdTokenMiddleware
@@ -15,19 +16,22 @@ firebase_credentials = credentials.Certificate(admin_credentials)
 firebase_admin.initialize_app(firebase_credentials)
 
 
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Only create models and add middleware if this is not for running tests
+if __name__ == "__main__":
+    models.Base.metadata.create_all(bind=engine)
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 
-app.add_middleware(IdTokenMiddleware)
+    app.add_middleware(IdTokenMiddleware)
 
 def get_db():
     db = SessionLocal()

@@ -26,7 +26,8 @@ poetry run python fastapi_app/app.py
 The API will be available on `http://localhost:8000/`.
 
 
-## Runt tests
+
+## Run tests
 ``` bash
 poetry run pytest
 ```
