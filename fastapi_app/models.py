@@ -1,8 +1,9 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from database import Base
+from sqlalchemy.ext.declarative import declarative_base
 
+Base = declarative_base()
 
 class Rating(Base):
     __tablename__ = "ratings"

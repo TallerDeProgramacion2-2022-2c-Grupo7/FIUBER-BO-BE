@@ -9,7 +9,7 @@ import sys
 path = str(Path(Path(__file__).parent.absolute()).parent.absolute())
 sys.path.insert(0, path + "/fastapi_app")
 from app import app, get_db
-from database import Base
+from models import Base
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 
