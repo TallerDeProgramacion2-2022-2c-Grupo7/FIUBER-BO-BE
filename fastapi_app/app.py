@@ -10,7 +10,8 @@ from os import environ
 from firebase_credentials import admin_credentials
 from id_token import IdTokenMiddleware
 import crud, models, schemas
-from database import SessionLocal, engine
+if __name__ == "__main__":
+    from database import SessionLocal, engine
 
 firebase_credentials = credentials.Certificate(admin_credentials)
 firebase_admin.initialize_app(firebase_credentials)
