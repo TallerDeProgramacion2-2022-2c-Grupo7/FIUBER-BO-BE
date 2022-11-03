@@ -8,7 +8,7 @@ Backend for FIUBER's ratings
 ## Local installation & usage
 
 1. Copy the Firebase credentials JSON (`firebase_credentials.json`) into the `src` directory of the repository.
-2. Create a `.env` where the variables `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB` and `PORT` are defined
+2. Create a `.env` where the variables `POSTGRES_USER`, `POSTGRES_PASSWORD` and `POSTGRES_DB` are defined
 3. Start the PostgreSQL instance
 ```
 docker run -it --rm -p 5432:5432 --env-file .env postgres
@@ -38,7 +38,8 @@ The following GitHub Actions Secrets are required:
 1. `DOCKERHUB_USERNAME`
 2. `DOCKERHUB_TOKEN`
 3. `KUBE_CONFIG_DATA` (generated with `cat kubeconfig.yaml | base64 -w 0`)
-4. `DATABASE_HOST`
-5. `DATABASE_PASSWORD`
-6. `FIREBASE_CREDENTIALS` (generated with `cat firebase-credentials.json | base64 -w 0`)
+4. `POSTGRES_USER`
+5. `POSTGRES_DB`
+6. `POSTGRES_PASSWORD`
+7. `FIREBASE_CREDENTIALS` (generated with `cat firebase-credentials.json | base64 -w 0`)
 
