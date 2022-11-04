@@ -2,6 +2,8 @@
 
 
 ![licence](https://img.shields.io/github/license/TallerDeProgramacion2-2022-2c-Grupo7/FIUBER-BO-BE)
+[![Deploy](https://github.com/TallerDeProgramacion2-2022-2c-Grupo7/FIUBER-Ratings/actions/workflows/deployment.yml/badge.svg?branch=main)](https://github.com/TallerDeProgramacion2-2022-2c-Grupo7/FIUBER-Ratings/actions/workflows/deployment.yml)
+[![Tests](https://github.com/TallerDeProgramacion2-2022-2c-Grupo7/FIUBER-Ratings/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/TallerDeProgramacion2-2022-2c-Grupo7/FIUBER-Ratings/actions/workflows/tests.yml)
 
 Backend for FIUBER's ratings
 
