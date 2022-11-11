@@ -5,6 +5,7 @@ from os import environ
 
 POSTGRES_USER = environ.get("POSTGRES_USER")
 POSTGRES_PASSWORD = environ.get("POSTGRES_PASSWORD")
+POSTGRES_HOST = environ.get("POSTGRES_HOST")
 POSTGRES_DB = environ.get("POSTGRES_DB")
 
 
@@ -13,7 +14,9 @@ DATABASE_URL = (
     + POSTGRES_USER
     + ":"
     + POSTGRES_PASSWORD
-    + "@localhost:5432/"
+    + "@"
+    + POSTGRES_HOST
+    + ":5432/"
     + POSTGRES_DB
 )
 

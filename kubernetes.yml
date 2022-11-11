@@ -23,6 +23,8 @@ spec:
           value: "$POSTGRES_USER"
         - name: POSTGRES_DB
           value: "$POSTGRES_DB"
+        - name: POSTGRES_HOST
+          value:  "$POSTGRES_HOST"
 
 ---
 
@@ -49,6 +51,8 @@ spec:
             value: "$POSTGRES_USER"
           - name: POSTGRES_DB
             value: "$POSTGRES_DB"
+          - name: POSTGRES_HOST
+            value:  "$POSTGRES_HOST"
 
 ---
 
