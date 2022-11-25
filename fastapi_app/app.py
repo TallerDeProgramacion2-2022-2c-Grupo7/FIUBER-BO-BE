@@ -47,9 +47,9 @@ def create_rating(rating: schemas.Rating, db: Session = Depends(get_db)):
     if rating.id_user_scorer == rating.id_user_scored:
         raise HTTPException(status_code=400, detail="A user can't rate himself")
 
-    db_rating = crud.get_rating_by_id_trip(db, id_trip=rating.id_trip)
-    if db_rating:
-        raise HTTPException(status_code=400, detail="Rating already registered")
+    #db_rating = crud.get_rating_by_id_trip(db, id_trip=rating.id_trip)
+   # if db_rating:
+       # raise HTTPException(status_code=400, detail="Rating already registered")
 
     return crud.create_rating(db=db, rating=rating)
 
@@ -68,7 +68,7 @@ def read_ratings(
 def get_average_score(id_user_scored: str, db: Session = Depends(get_db)):
     ratings_summary = crud.get_ratings_summary(db, id_user_scored)
     if ratings_summary is None:
-        raise HTTPException(status_code=404, detail="User not found")
+        return -1
 
     total_sum, count = ratings_summary
     avg = round(total_sum / count, 2)
