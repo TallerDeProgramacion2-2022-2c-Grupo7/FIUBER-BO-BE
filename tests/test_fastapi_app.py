@@ -59,9 +59,6 @@ def test_add_a_rating(test_db):
     assert data["value"] == 3
 
 
-
-
-
 def test_a_user_cant_rate_himself(test_db):
     response = client.post(
         "/",
@@ -127,4 +124,3 @@ def test_average_of_invalid_user(test_db):
     assert response.status_code == 200
     data = response.json()
     assert data == -1
- 
