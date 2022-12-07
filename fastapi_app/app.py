@@ -38,6 +38,7 @@ if __name__ == "__main__":
 
     app.add_middleware(DatadogEventMiddleware)
 
+
 def get_db():
     db = SessionLocal()
     try:
