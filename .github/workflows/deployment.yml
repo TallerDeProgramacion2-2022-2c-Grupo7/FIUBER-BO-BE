@@ -44,6 +44,7 @@ jobs:
           && sed -i "s/\$POSTGRES_PASSWORD/${{ secrets.POSTGRES_PASSWORD }}/g" ./kubernetes.yml
           && sed -i "s/\$POSTGRES_DB/${{ secrets.POSTGRES_DB }}/g" ./kubernetes.yml
           && sed -i "s/\$POSTGRES_HOST/${{ secrets.POSTGRES_HOST }}/g" ./kubernetes.yml
+          && sed -i "s/\$DD_API_KEY/${{ secrets.DD_API_KEY }}/g" ./kubernetes.yml
 
       - 
         name: Create .env file
