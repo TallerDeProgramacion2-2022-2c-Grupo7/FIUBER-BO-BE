@@ -53,6 +53,15 @@ spec:
             value: "$POSTGRES_DB"
           - name: POSTGRES_HOST
             value: "$POSTGRES_HOST"
+          - name: PGDATA
+            value: /var/lib/postgresql/data/db/
+          volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: $APP_NAME-db-volume
+      volumes:
+      - name: $APP_NAME-db-volume
+        persistentVolumeClaim:
+          claimName: $APP_NAME-db-volume-claim
 
 ---
 
@@ -81,6 +90,47 @@ spec:
       port: 5432
   selector:
     app: postgres
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dd-agent
+spec:
+  selector:
+    matchLabels:
+      app: dd-agent
+  template:
+    metadata:
+      labels:
+        app: dd-agent
+    spec:
+      containers:
+      - image: datadog/agent
+        name: dd-agent
+        env:
+        - name: DD_SITE
+          value: "datadoghq.com"
+        - name: DD_API_KEY
+          value: "$DD_API_KEY"
+        - name: DD_DOGSTATSD_NON_LOCAL_TRAFFIC
+          value: "true"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dd-agent
+spec:
+  type: ClusterIP
+  ports:
+  - name: dd-agent
+    port: 8125
+    protocol: UDP
+  selector:
+    app: dd-agent
 
 ---
 
