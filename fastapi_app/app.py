@@ -6,6 +6,8 @@ from sqlalchemy.orm import Session
 import firebase_admin
 from firebase_admin import credentials
 from os import environ
+from datadog_event import DatadogEventMiddleware
+from datadog import initialize
 
 from firebase_credentials import admin_credentials
 from id_token import IdTokenMiddleware
@@ -14,6 +16,7 @@ import crud, models, schemas
 if __name__ == "__main__":
     from database import SessionLocal, engine
 
+initialize(statsd_host="dd-agent", statsd_port=8125)
 firebase_credentials = credentials.Certificate(admin_credentials)
 firebase_admin.initialize_app(firebase_credentials)
 
@@ -32,6 +35,8 @@ if __name__ == "__main__":
     )
 
     app.add_middleware(IdTokenMiddleware)
+
+    app.add_middleware(DatadogEventMiddleware)
 
 
 def get_db():
