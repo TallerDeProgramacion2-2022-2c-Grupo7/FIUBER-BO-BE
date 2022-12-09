@@ -3,13 +3,11 @@ from fastapi import status
 from starlette.middleware.base import BaseHTTPMiddleware
 from datadog import statsd
 
-
 def send_event(title: str, message: str, alert_type: str):
     try:
         statsd.event(title, message, alert_type, tags=["app_name:fiuber-ratings"])
     except:
         pass
-
 
 class DatadogEventMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
