@@ -27,9 +27,14 @@ jobs:
         run:  poetry install
 
       - name: Run tests
-        run:  pytest --cov=app 
+        run:  pytest --cov=app --cov-report=xml
         env: 
             FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
 
       - name: Run linters
         uses: wearerequired/lint-action@v2
