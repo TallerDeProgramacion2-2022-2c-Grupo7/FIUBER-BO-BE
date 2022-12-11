@@ -5,7 +5,6 @@ from firebase_admin import auth
 from firebase_admin import _auth_utils as auth_utils
 from starlette.middleware.base import BaseHTTPMiddleware
 
-
 class IdTokenMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         if request.method == "OPTIONS" or request.url.path in (
